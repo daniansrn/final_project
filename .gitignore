@@ -4,4 +4,7 @@ __pycache__/
 
 .env
 .venv/
+venv/
 ratings.json
+.claude/
+
