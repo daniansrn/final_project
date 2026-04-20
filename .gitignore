@@ -1,0 +1,7 @@
+#ignore pycache
+__pycache__/
+*.pyc
+
+.env
+.venv/
+ratings.json
