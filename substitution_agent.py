@@ -2,7 +2,7 @@ import json
 import os
 from typing import Any, Dict, List, Optional
 
-from llm_agent import generate_recipe_response
+from llm_agent import generate_raw_response
 
 
 def load_substitutes() -> Dict[str, Any]:
@@ -49,10 +49,14 @@ def build_substitution_prompt(recipe_data: Dict, missing: Dict[str, Optional[Dic
     return "\n".join(lines)
 
 
+_SUBSTITUTION_SYSTEM = (
+    "You are a helpful cooking assistant specializing in ingredient substitutions. "
+    "Reply with a short bullet list only — no intro, no outro, no recipe rewriting."
+)
+
+
 def get_substitution_advice(recipe_data: Dict, missing_ingredients: List[str]) -> str:
     """Main entry point: look up substitutes and generate LLM advice."""
     found = find_substitutes(missing_ingredients)
     prompt = build_substitution_prompt(recipe_data, found)
-    # Reuse the recipe response generator with a substitution-focused prompt
-    fake_recipe = dict(recipe_data)
-    return generate_recipe_response(fake_recipe, prompt)
+    return generate_raw_response(_SUBSTITUTION_SYSTEM, prompt)

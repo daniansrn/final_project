@@ -75,5 +75,6 @@ class EdamamClient:
             "ingredientLines": recipe.get("ingredientLines", []),
             "mainIngredients": main_ingredients,
             "cautions": recipe.get("cautions", []),
+            "dishType": recipe.get("dishType", []),
             "totalTime": recipe.get("totalTime", 0),
         }
