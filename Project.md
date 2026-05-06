@@ -16,21 +16,21 @@ UML Case Design:
 
 The chatbot system is designed to handle multiple interaction scenarios that guide the user from input to final recipe generation.
 
-- **User Input of Leftover Ingredients**
+1. **User Input of Leftover Ingredients**
 
 The AI agent first prompts the user to enter a list of leftover or nearly expired ingredients that they have on hand. Users are recommended to provide a more detailed description of what they want, such as meal type or preferences, to help the system retrieve relevant recipes.
 
-- **Allergen information**
+2. **Allergen information**
 
 Before displaying the recipe list, the chatbot asks the user to provide any allergen restrictions for safety measures (e.g., nuts, dairy, gluten). This step will help the agent filter out related allergen recipes. User may also skip this step if no restrictions are needed.
 
-- **Recipe list Retrieval**
+3. **Recipe list Retrieval**
 
 The system retrieves recipes from Edamam Recipe API ( <https://www.edamam.com/>), which has over 2 million recipes collected from public web sources. The chatbot displays up to 20 recipe and shows 5 recipes per page. Each recipe includes main ingredients needed(top 3 ingredients, preparation time and allergen and diet information
 
 The recipes are ranked based on how relevant they are to the user's input. If allergen restrictions are provided, recipes that include those allergens are excluded.
 
-- Recipe Navigation and Selection
+4. Recipe Navigation and Selection
 
 At this point, the user gets to choose either:
 
@@ -45,7 +45,7 @@ If the user reaches the last page, the "next page" option is no longer available
 
 **Figure 1:** _Recipe navigation options after displaying the recipe list_
 
-- Input Interpretation
+5. Input Interpretation
 
 The system output is based on detailed information provided by the user. If the user provides only basic ingredients (e.g., "milk, banana"), the system tends to suggest simple recipes such as drinks or smoothies.
 ![alt text](image_file/image-1.png)
@@ -53,38 +53,38 @@ The system output is based on detailed information provided by the user. If the 
 **Figure 2:** _Recipe suggestions based on basic ingredient input_
 
 However, if the user provides a more detailed description (e.g., "make a proper meal from these ingredients"), the system generates more complete dish suggestions instead, shown in **Figure 3**.
-![alt text](image_file/image-2.png)
+![alt text](image_file/image-13.png)
 
 **Figure 3:** _Recipe suggestions based on detailed user description_
 
-- Nutrition, Allergen, and Serving Size Adjustment
+6. Nutrition, Allergen, and Serving Size Adjustment
 
 After a recipe is chosen, the system displays:
 
-- Total and per-serving calories
-- Serving size
-- Allergen-free information and allergy description
+1.   Total and per-serving calories
+2.   Serving size
+3.  Allergen-free information and allergy description
 
 The user is then prompted to choose a serving size (e.g., 1, 2, 4, 6, or 8 servings). The ingredient quantities are adjusted based on the serving size; either divide or multiply them. The default recipe serving size is also included for user preference.
 
 ![alt text](image_file/image-3.png)
 **Figure 4:** _Nutrition information and serving size selection_
 
-- Ingredient Substitution
+7. Ingredient Substitution
 
 After generating the ingredient list, the chatbot asks whether any ingredients are missing. If missing ingredients are provided, the system retrieves substitution suggestions from a local JSON database _(substitutions.json)_. If no exact match is found, the LLM attempts to generate a reasonable alternative.
 
 ![alt text](image_file/image-4.png)
 **Figure 5:** _Ingredient list with substitution suggestions_
 
-- Recipe Generation
+8. Recipe Generation
 
 The AI agent generates a complete recipe, including ingredient list (with substitution notes if applicable) and step-by-step cooking instructions. The recipes are based on data from the Edamam API and constructed with AI formatting and explanations. Example from **Figure 6** below, the coconut milk has a substitution note where it could be replaced with oat milk or any nut milk.
 
 ![alt text](image_file/image-5.png)
 **Figure 6:** _Complete recipe with substitution notes and instructions_
 
-- Rating Rating
+1. Ratings
 
 At the end of the interaction, the system displays the current rating of the recipe and prompts the user to provide their own rating. These ratings are stored locally in _ratings.json_ and can be used to influence future recommendations.
 
